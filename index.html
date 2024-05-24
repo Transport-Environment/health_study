@@ -222,9 +222,9 @@ margin-top: 10px;
   var circle10_W = turf.circle([20.971268, 52.166264], 10, {units: 'kilometers', steps: 64 });
   var circle5_W = turf.circle([20.971268, 52.166264], 5, {units: 'kilometers', steps: 64 });
 
-  var circle_B = turf.circle([2.084083,41.297126], 20, {units: 'kilometers', steps: 64 });
-  var circle10_B = turf.circle([2.084083, 41.297126], 10, {units: 'kilometers', steps: 64 });
-  var circle5_B = turf.circle([2.084083, 41.297126], 5, {units: 'kilometers', steps: 64 });
+  var circle_BA = turf.circle([2.084083,41.297126], 20, {units: 'kilometers', steps: 64 });
+  var circle10_BA = turf.circle([2.084083, 41.297126], 10, {units: 'kilometers', steps: 64 });
+  var circle5_BA = turf.circle([2.084083, 41.297126], 5, {units: 'kilometers', steps: 64 });
 
   map.on('load', function () {
 
@@ -1516,11 +1516,11 @@ margin-top: 10px;
 
   //Barcelona
   map.addLayer({
-    id: 'circle_B',
+    id: 'circle_BA',
     type: 'line',
     source: {
       type: 'geojson',
-      data: circle_B
+      data: circle_BA
     },
     layout: {},
     paint: {
@@ -1529,11 +1529,11 @@ margin-top: 10px;
     }
   });
   map.addLayer({
-    id: 'circle10_B',
+    id: 'circle10_BA',
     type: 'line',
     source: {
       type: 'geojson',
-      data: circle10_B
+      data: circle10_BA
     },
     layout: {},
     paint: {
@@ -1542,11 +1542,11 @@ margin-top: 10px;
     }
   });
   map.addLayer({
-    id: 'circle5_B',
+    id: 'circle5_BA',
     type: 'line',
     source: {
       type: 'geojson',
-      data: circle5_B
+      data: circle5_BA
     },
     layout: {},
     paint: {
