@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Display a map on a webpage</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>
+
+<script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+
+
+
+<style>
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%; height:80%}
+
+#fly {
+        display: block;
+        position: relative;
+        margin: 0px auto;
+        width:20%;
+        height: 50px;
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        font-size: 1em;
+        text-align: center;
+        color: black;
+        border: 1px solid black;
+        background: #fafafa;
+        font-family: "Roboto", sans-serif;
+
+}
+
+
+#fly:hover {
+  color: white;
+  border: 1px solid white;
+  background: #FF8754;
+  font-family: "Roboto", sans-serif;
+
+}
+#legend{
+  display: block;
+  padding-left: 2%;
+  position: relative;
+}
+#legend img{
+  width:15%;
+  height:auto;
+}
+
+
+@media only screen and (max-width: 700px) {
+  #fly {
+    width:60%;
+    height: 60px;
+
+  }
+  #legend{
+  display: block;
+  padding-left: 2%;
+  position: relative;
+
+}
+#legend img{
+  width:30%;
+  height:auto;
+}
+}
+</style>
+
+</head>
+<body>
+
+<div id='map'></div>
+<div id="locations">
+  <button id="fly">Click here to change the city</button>
+</div>
+<div id="legend">
+  <img src="https://raw.githubusercontent.com/Transport-Environment/health_study/main/legend.png"  >
+</div>
+
+<script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoiY3Jpc3RpbmFwaXRhdGUiLCJhIjoiY2x3a2cyNmJ0MTk4MjJscW16ZXAzMGs2aCJ9.voDgP13qCp6rAGhcxEvFbA';
+
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/cristinapitate/clwkgc7lu00vw01qrbjpi5agt',
+    center: [-3.559752, 40.480677],
+    zoom: 9
+  });// Función para convertir el radio en metros a píxeles en el mapa
+  var circle = turf.circle([-3.559752, 40.480677], 20, {units: 'kilometers', steps: 64 });
+  var circle10 = turf.circle([-3.559752, 40.480677], 10, {units: 'kilometers', steps: 64 });
+  var circle5 = turf.circle([-3.559752, 40.480677], 5, {units: 'kilometers', steps: 64 });
+
+  var circle_PG = turf.circle([2.5504162, 49.0078721], 20, {units: 'kilometers', steps: 64 });
+  var circle10_PG = turf.circle([2.5504162, 49.0078721], 10, {units: 'kilometers', steps: 64 });
+  var circle5_PG = turf.circle([2.5504162, 49.0078721], 5, {units: 'kilometers', steps: 64 });
+
+  var circle_PO = turf.circle([2.3614817, 48.7276601], 20, {units: 'kilometers', steps: 64 });
+  var circle10_PO = turf.circle([2.3614817, 48.7276601], 10, {units: 'kilometers', steps: 64 });
+  var circle5_PO = turf.circle([2.3614817, 48.7276601], 5, {units: 'kilometers', steps: 64 });
+
+  var circle_LH = turf.circle([-0.4563254, 51.4707487], 20, {units: 'kilometers', steps: 64 });
+  var circle10_LH = turf.circle([-0.4563254, 51.4707487], 10, {units: 'kilometers', steps: 64 });
+  var circle5_LH = turf.circle([-0.4563254, 51.4707487], 5, {units: 'kilometers', steps: 64 });
+
+  var circle_B = turf.circle([4.4854301, 50.9006291], 20, {units: 'kilometers', steps: 64 });
+  var circle10_B = turf.circle([4.4854301, 50.9006291], 10, {units: 'kilometers', steps: 64 });
+  var circle5_B = turf.circle([4.4854301, 50.9006291], 5, {units: 'kilometers', steps: 64 });
+
+  var circle_G = turf.circle([6.1065139, 46.2369794], 20, {units: 'kilometers', steps: 64 });
+  var circle10_G = turf.circle([6.1065139, 46.2369794], 10, {units: 'kilometers', steps: 64 });
+  var circle5_G = turf.circle([6.1065139, 46.2369794], 5, {units: 'kilometers', steps: 64 });
+
+  var circle_F = turf.circle([8.5615099, 50.0378006], 20, {units: 'kilometers', steps: 64 });
+  var circle10_F = turf.circle([8.5615099, 50.0378006], 10, {units: 'kilometers', steps: 64 });
+  var circle5_F = turf.circle([8.5615099, 50.0378006], 5, {units: 'kilometers', steps: 64 });
+
+  var circle_L = turf.circle([-9.1350871, 38.7798183], 20, {units: 'kilometers', steps: 64 });
+  var circle10_L = turf.circle([-9.1350871, 38.7798183], 10, {units: 'kilometers', steps: 64 });
+  var circle5_L = turf.circle([-9.1350871, 38.7798183], 5, {units: 'kilometers', steps: 64 });
+
+  var circle_AM = turf.circle([4.747984, 52.3157299], 20, {units: 'kilometers', steps: 64 });
+  var circle10_AM = turf.circle([4.747984, 52.3157299], 10, {units: 'kilometers', steps: 64 });
+  var circle5_AM = turf.circle([4.747984, 52.3157299], 5, {units: 'kilometers', steps: 64 });
+
+  map.on('load', function () {
+
+    //madrid
+  map.addLayer({
+    id: 'circle',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+
+  map.addLayer({
+    id: 'circle10',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle10
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+
+  map.addLayer({
+    id: 'circle5',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle5
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+
+  //paris charles de gaulle
+  map.addLayer({
+    id: 'circle_PG',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle_PG
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+
+  map.addLayer({
+    id: 'circle10_PG',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle10_PG
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+
+  map.addLayer({
+    id: 'circle5_PG',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle5_PG
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+
+  //paris orly
+  map.addLayer({
+    id: 'circle_PO',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle_PO
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+  map.addLayer({
+    id: 'circle10_PO',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle10_PO
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+  map.addLayer({
+    id: 'circle5_PO',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle5_PO
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+
+  //london heathrow
+  map.addLayer({
+    id: 'circle_LH',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle_LH
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+  map.addLayer({
+    id: 'circle10_LH',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle10_LH
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+  map.addLayer({
+    id: 'circle5_LH',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle5_LH
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+
+
+  //Brussels
+  map.addLayer({
+    id: 'circle_B',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle_B
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+  map.addLayer({
+    id: 'circle10_B',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle10_B
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+  map.addLayer({
+    id: 'circle5_B',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle5_B
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+
+  //Geneva
+  map.addLayer({
+    id: 'circle_G',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle_G
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+  map.addLayer({
+    id: 'circle10_G',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle10_G
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+  map.addLayer({
+    id: 'circle5_G',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle5_G
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+
+
+  //Frankfurt
+  map.addLayer({
+    id: 'circle_F',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle_F
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+  map.addLayer({
+    id: 'circle10_F',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle10_F
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+  map.addLayer({
+    id: 'circle5_F',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle5_F
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+
+  //Lisbon
+  map.addLayer({
+    id: 'circle_L',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle_L
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+  map.addLayer({
+    id: 'circle10_L',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle10_L
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+  map.addLayer({
+    id: 'circle5_L',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle5_L
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+
+  //Amsterdam
+  map.addLayer({
+    id: 'circle_AM',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle_AM
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+  map.addLayer({
+    id: 'circle10_AM',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle10_AM
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+  map.addLayer({
+    id: 'circle5_AM',
+    type: 'line',
+    source: {
+      type: 'geojson',
+      data: circle5_AM
+    },
+    layout: {},
+    paint: {
+      'line-color': '#FF8754',
+      'line-width': 2
+    }
+  });
+
+});
+
+
+const locations = [
+    [2.5504162, 49.0078721], // París
+    [4.4854301, 50.9006291],  // Bruselas
+    [6.1065139, 46.2369794], // Ginebra
+    [-0.4563254, 51.4707487],  // Londres
+    [-9.1350871, 38.7798183], // Lisboa
+    [8.5615099, 50.0378006], // Frankfurt
+    [4.747984, 52.3157299], // Ámsterdam
+    [-3.559752, 40.480677]  // Madrid
+];
+
+// Índice inicial
+let currentIndex = 0;
+
+document.getElementById('fly').addEventListener('click', () => {
+    // Selecciona la ubicación actual del array
+    const currentLocation = locations[currentIndex];
+    
+    // Cambia a la ubicación seleccionada
+    map.flyTo({
+        center: currentLocation,
+        essential: true // esta animación se considera esencial con respecto a prefers-reduced-motion
+    });
+
+    // Incrementa el índice
+    currentIndex++;
+
+    // Resetea el índice si llega al final del array
+    if (currentIndex >= locations.length) {
+        currentIndex = 0;
+    }
+});
+    map.addControl(new mapboxgl.NavigationControl());
+
+</script>
+
+</body>
+</html>
