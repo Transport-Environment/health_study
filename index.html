@@ -1673,14 +1673,12 @@ let currentIndex = 0;
 const initialPosition = [4.9998747,52.7573947];
 
 document.getElementById('fly').addEventListener('click', () => {
-    // Selecciona la ubicación actual del array
     const currentLocation = locations[currentIndex];
     
-    // Cambia a la ubicación seleccionada
     map.flyTo({
         center: currentLocation,
         zoom: 9,
-        essential: true // esta animación se considera esencial con respecto a prefers-reduced-motion
+        essential: true 
     });
 
     // Incrementa el índice
@@ -1698,7 +1696,7 @@ document.getElementById('flytwo').addEventListener('click', () => {
     map.flyTo({
         center: initialPosition,
         zoom: 3,
-        essential: true // esta animación se considera esencial con respecto a prefers-reduced-motion
+        essential: true 
     });
 });
     map.addControl(new mapboxgl.NavigationControl());
